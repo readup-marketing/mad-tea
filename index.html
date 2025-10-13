@@ -403,7 +403,7 @@
     </div>
 
     <script>
-        // Mailchimp Integration with JSONP (avoids CORS issues)
+        // Mailchimp Integration with improved error handling
         document.getElementById('emailForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -431,35 +431,71 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
 
-            // Mailchimp JSONP request (no CORS issues)
-            const mailchimpUrl = 'https://us17.list-manage.com/subscribe/post-json?u=b222767eb6&id=b222767eb6&c=?';
+            // Clear any previous error
+            errorMessage.classList.remove('show');
+
+            // Create callback with unique name to avoid conflicts
+            const callbackName = 'mailchimpCallback' + Date.now();
             
-            // Create callback function
-            window.mailchimpCallback = function(data) {
-                if (data.result === 'success' || data.status === 200) {
-                    // Success
+            window[callbackName] = function(data) {
+                // Handle response
+                if (data.result === 'success') {
                     errorMessage.classList.remove('show');
                     successMessage.classList.add('show');
                     form.style.display = 'none';
                     console.log('Signup successful:', {name, email});
-                } else if (data.result === 'error' && data.msg.includes('already a list member')) {
-                    // Email already subscribed
+                } else if (data.msg && data.msg.includes('already a list member')) {
                     errorMessage.textContent = 'This email is already on our waiting list!';
                     errorMessage.classList.add('show');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Reserve My Spot - It\'s Free';
                 } else {
-                    // Error
                     errorMessage.textContent = data.msg || 'Something went wrong. Please try again.';
                     errorMessage.classList.add('show');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Reserve My Spot - It\'s Free';
                 }
+                // Clean up
+                delete window[callbackName];
             };
 
-            // Build JSONP request
+            // Mailchimp JSONP URL - using correct endpoint
+            const mailchimpUrl = 'https://us17.list-manage.com/subscribe/post-json';
+            const params = {
+                u: 'b222767eb6',
+                id: 'b222767eb6',
+                EMAIL: email,
+                FNAME: name,
+                c: callbackName
+            };
+            
+            // Build query string
+            const queryString = Object.keys(params)
+                .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+                .join('&');
+
+            // Create script tag for JSONP
             const script = document.createElement('script');
-            script.src = mailchimpUrl + '&EMAIL=' + encodeURIComponent(email) + '&MERGE1=' + encodeURIComponent(name) + '&c=mailchimpCallback';
+            script.src = mailchimpUrl + '?' + queryString;
+            script.onerror = function() {
+                errorMessage.textContent = 'Connection error. Please try again.';
+                errorMessage.classList.add('show');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Reserve My Spot - It\'s Free';
+                delete window[callbackName];
+            };
+            
+            // Add timeout in case callback never fires
+            setTimeout(function() {
+                if (window[callbackName]) {
+                    errorMessage.textContent = 'Request timeout. Please try again.';
+                    errorMessage.classList.add('show');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Reserve My Spot - It\'s Free';
+                    delete window[callbackName];
+                }
+            }, 10000); // 10 second timeout
+            
             document.body.appendChild(script);
         });
     </script>
