@@ -12,10 +12,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: #0f0f0f;
-            color: #fff;
-            letter-spacing: 0.5px;
+            color: #333;
         }
 
         /* Top Warning Banner */
@@ -24,9 +23,9 @@
             padding: 15px 20px;
             text-align: center;
             font-size: 0.95em;
-            color: #000;
-            font-weight: 600;
-            border-bottom: none;
+            color: #333;
+            font-weight: 500;
+            border-bottom: 2px solid #ffb300;
         }
 
         .container {
@@ -35,13 +34,18 @@
             padding: 60px 40px;
         }
 
+        /* Header with Logo */
+        .header {
+            display: none;
+        }
+
         /* Hero Section */
         .hero-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
-            margin-bottom: 100px;
+            margin-bottom: 80px;
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             padding: 80px 60px;
             border-radius: 8px;
@@ -53,14 +57,14 @@
         }
 
         .hook-column h1 {
-            font-size: 3.5em;
-            font-weight: 800;
+            font-size: 3.2em;
+            font-weight: 700;
             line-height: 1.1;
             color: #fff;
+            font-family: Georgia, serif;
             margin-bottom: 20px;
             position: relative;
             padding-bottom: 15px;
-            letter-spacing: -1px;
         }
 
         .hook-column h1:after {
@@ -68,17 +72,16 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 80px;
-            height: 5px;
-            background: #ffc107;
-            border-radius: 3px;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ffc107 0%, #ffb300 100%);
+            border-radius: 2px;
         }
 
         .hook-column p {
-            font-size: 1.25em;
+            font-size: 1.2em;
             color: #d0d0d0;
             line-height: 1.6;
-            font-weight: 400;
         }
 
         /* Right Column - Email Form */
@@ -89,29 +92,29 @@
         .form-box {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 50px 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
         }
 
         .form-box h3 {
-            font-size: 1.5em;
-            font-weight: 700;
+            font-size: 1.4em;
+            font-weight: 600;
             color: #fff;
             text-align: center;
             margin-bottom: 20px;
-            letter-spacing: 0.3px;
+            line-height: 1.3;
         }
 
         .form-date {
-            background: rgba(255, 193, 7, 0.15);
-            padding: 14px;
+            background: #fff3cd;
+            padding: 12px;
             border-radius: 6px;
             margin-bottom: 25px;
             border-left: 4px solid #ffc107;
             font-weight: 600;
-            color: #ffc107;
+            color: #333;
             font-size: 0.95em;
             text-align: center;
         }
@@ -151,25 +154,22 @@
             border: none;
             border-radius: 6px;
             font-size: 1.05em;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .cta-button:hover {
-            background: #ffed4e;
+            background: #ffb300;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(255, 193, 7, 0.4);
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
         }
 
         .cta-button:disabled {
-            background: #666;
+            background: #ccc;
             cursor: not-allowed;
             transform: none;
-            color: #999;
         }
 
         .security-badge {
@@ -182,14 +182,14 @@
         /* Success Message */
         .success-message {
             display: none;
-            background: rgba(76, 175, 80, 0.2);
-            border: 1px solid #4caf50;
-            color: #90ee90;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
             padding: 15px;
             border-radius: 6px;
             margin-bottom: 15px;
             text-align: center;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .success-message.show {
@@ -198,14 +198,14 @@
 
         .error-message {
             display: none;
-            background: rgba(244, 67, 54, 0.2);
-            border: 1px solid #f44336;
-            color: #ff7f7f;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
             padding: 15px;
             border-radius: 6px;
             margin-bottom: 15px;
             text-align: center;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .error-message.show {
@@ -215,59 +215,47 @@
         /* Below Section */
         .below-section {
             background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
-            padding: 80px 60px;
-            border-radius: 8px;
+            padding: 50px 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .below-section h2 {
-            font-size: 2.8em;
-            font-weight: 800;
+            font-size: 2.2em;
+            font-weight: 700;
             color: #fff;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             text-align: center;
-            letter-spacing: -0.5px;
+            font-family: Georgia, serif;
         }
 
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 40px;
         }
 
         .benefit-card {
             text-align: left;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .benefit-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 193, 7, 0.3);
-            transform: translateY(-5px);
         }
 
         .benefit-card h3 {
-            font-size: 1.3em;
-            font-weight: 700;
+            font-size: 1.2em;
+            font-weight: 600;
             color: #ffc107;
-            margin-bottom: 15px;
-            letter-spacing: 0.3px;
+            margin-bottom: 12px;
         }
 
         .benefit-card p {
             font-size: 1.05em;
             color: #d0d0d0;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         @media (max-width: 1024px) {
             .hero-section {
                 grid-template-columns: 1fr;
                 gap: 40px;
-                padding: 60px 40px;
             }
 
             .hook-column {
@@ -275,7 +263,7 @@
             }
 
             .hook-column h1 {
-                font-size: 2.8em;
+                font-size: 2.4em;
             }
 
             .benefits-grid {
@@ -288,12 +276,12 @@
                 padding: 40px 20px;
             }
 
-            .hero-section {
-                padding: 40px 20px;
+            .container-header {
+                padding: 0 20px;
             }
 
             .hook-column h1 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
             .hook-column p {
@@ -309,11 +297,11 @@
             }
 
             .below-section {
-                padding: 40px 20px;
+                padding: 30px 20px;
             }
 
             .below-section h2 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
             .cta-button {
@@ -415,7 +403,7 @@
     </div>
 
     <script>
-        // Simple form handler
+        // Mailchimp Integration
         document.getElementById('emailForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -443,24 +431,57 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
 
-            // Simulate sending email
-            setTimeout(function() {
-                // Store data in browser
-                let signups = JSON.parse(localStorage.getItem('madTeaPartySignups') || '[]');
-                signups.push({
-                    name: name,
-                    email: email,
-                    date: new Date().toISOString()
-                });
-                localStorage.setItem('madTeaPartySignups', JSON.stringify(signups));
-                
-                // Show success
-                errorMessage.classList.remove('show');
-                successMessage.classList.add('show');
-                form.style.display = 'none';
-                
-                console.log('Signup captured:', {name, email});
-            }, 1000);
+            // Mailchimp API endpoint
+            const mailchimpUrl = 'https://us17.api.mailchimp.com/3.0/lists/b222767eb6/members';
+            const apiKey = '9e37f3dc4c25734fa368b8ca71763bb3-us17';
+            
+            // Prepare data
+            const data = {
+                email_address: email,
+                status: 'subscribed',
+                merge_fields: {
+                    FNAME: name
+                }
+            };
+
+            // Send to Mailchimp
+            fetch(mailchimpUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('anystring:' + apiKey),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id || data.status === 'subscribed') {
+                    // Success
+                    errorMessage.classList.remove('show');
+                    successMessage.classList.add('show');
+                    form.style.display = 'none';
+                    console.log('Signup successful:', {name, email});
+                } else if (data.status === 400 && data.title === 'Member Exists') {
+                    // Email already subscribed
+                    errorMessage.textContent = 'This email is already on our waiting list!';
+                    errorMessage.classList.add('show');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Reserve My Spot - It\'s Free';
+                } else {
+                    // Error
+                    errorMessage.textContent = 'Something went wrong. Please try again.';
+                    errorMessage.classList.add('show');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Reserve My Spot - It\'s Free';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorMessage.textContent = 'Connection error. Please try again.';
+                errorMessage.classList.add('show');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Reserve My Spot - It\'s Free';
+            });
         });
     </script>
 </body>
