@@ -403,7 +403,7 @@
     </div>
 
     <script>
-        // Mailchimp Integration
+        // Mailchimp Integration with JSONP (avoids CORS issues)
         document.getElementById('emailForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -431,37 +431,18 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
 
-            // Mailchimp API endpoint
-            const mailchimpUrl = 'https://us17.api.mailchimp.com/3.0/lists/b222767eb6/members';
-            const apiKey = '9e37f3dc4c25734fa368b8ca71763bb3-us17';
+            // Mailchimp JSONP request (no CORS issues)
+            const mailchimpUrl = 'https://us17.list-manage.com/subscribe/post-json?u=b222767eb6&id=b222767eb6&c=?';
             
-            // Prepare data
-            const data = {
-                email_address: email,
-                status: 'subscribed',
-                merge_fields: {
-                    FNAME: name
-                }
-            };
-
-            // Send to Mailchimp
-            fetch(mailchimpUrl, {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Basic ' + btoa('anystring:' + apiKey),
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.id || data.status === 'subscribed') {
+            // Create callback function
+            window.mailchimpCallback = function(data) {
+                if (data.result === 'success' || data.status === 200) {
                     // Success
                     errorMessage.classList.remove('show');
                     successMessage.classList.add('show');
                     form.style.display = 'none';
                     console.log('Signup successful:', {name, email});
-                } else if (data.status === 400 && data.title === 'Member Exists') {
+                } else if (data.result === 'error' && data.msg.includes('already a list member')) {
                     // Email already subscribed
                     errorMessage.textContent = 'This email is already on our waiting list!';
                     errorMessage.classList.add('show');
@@ -469,19 +450,17 @@
                     submitBtn.textContent = 'Reserve My Spot - It\'s Free';
                 } else {
                     // Error
-                    errorMessage.textContent = 'Something went wrong. Please try again.';
+                    errorMessage.textContent = data.msg || 'Something went wrong. Please try again.';
                     errorMessage.classList.add('show');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Reserve My Spot - It\'s Free';
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                errorMessage.textContent = 'Connection error. Please try again.';
-                errorMessage.classList.add('show');
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Reserve My Spot - It\'s Free';
-            });
+            };
+
+            // Build JSONP request
+            const script = document.createElement('script');
+            script.src = mailchimpUrl + '&EMAIL=' + encodeURIComponent(email) + '&MERGE1=' + encodeURIComponent(name) + '&c=mailchimpCallback';
+            document.body.appendChild(script);
         });
     </script>
 </body>
