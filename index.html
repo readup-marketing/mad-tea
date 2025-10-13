@@ -345,7 +345,7 @@
                         ✓ Check your email - you're on the waiting list!
                     </div>
 
-                    <form id="emailForm">
+                    <form id="emailForm" action="https://formspree.io/f/mrbyoqql" method="POST">
                         <div class="form-group">
                             <input type="text" id="nameInput" placeholder="Your name" required>
                         </div>
@@ -403,100 +403,29 @@
     </div>
 
     <script>
-        // Mailchimp Integration with improved error handling
+        // Simple form validation
         document.getElementById('emailForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             const name = document.getElementById('nameInput').value;
             const email = document.getElementById('emailInput').value;
-            const submitBtn = document.getElementById('submitBtn');
-            const form = document.getElementById('emailForm');
-            const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
             
-            // Validate email
-            if (!email || !email.includes('@')) {
-                errorMessage.textContent = 'Please enter a valid email address';
-                errorMessage.classList.add('show');
-                return;
-            }
-
+            // Validate
             if (!name || name.trim() === '') {
+                e.preventDefault();
                 errorMessage.textContent = 'Please enter your name';
                 errorMessage.classList.add('show');
                 return;
             }
             
-            // Disable button
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-
-            // Clear any previous error
-            errorMessage.classList.remove('show');
-
-            // Create callback with unique name to avoid conflicts
-            const callbackName = 'mailchimpCallback' + Date.now();
-            
-            window[callbackName] = function(data) {
-                // Handle response
-                if (data.result === 'success') {
-                    errorMessage.classList.remove('show');
-                    successMessage.classList.add('show');
-                    form.style.display = 'none';
-                    console.log('Signup successful:', {name, email});
-                } else if (data.msg && data.msg.includes('already a list member')) {
-                    errorMessage.textContent = 'This email is already on our waiting list!';
-                    errorMessage.classList.add('show');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Reserve My Spot - It\'s Free';
-                } else {
-                    errorMessage.textContent = data.msg || 'Something went wrong. Please try again.';
-                    errorMessage.classList.add('show');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Reserve My Spot - It\'s Free';
-                }
-                // Clean up
-                delete window[callbackName];
-            };
-
-            // Mailchimp JSONP URL - using correct endpoint
-            const mailchimpUrl = 'https://us17.list-manage.com/subscribe/post-json';
-            const params = {
-                u: 'b222767eb6',
-                id: 'b222767eb6',
-                EMAIL: email,
-                FNAME: name,
-                c: callbackName
-            };
-            
-            // Build query string
-            const queryString = Object.keys(params)
-                .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
-                .join('&');
-
-            // Create script tag for JSONP
-            const script = document.createElement('script');
-            script.src = mailchimpUrl + '?' + queryString;
-            script.onerror = function() {
-                errorMessage.textContent = 'Connection error. Please try again.';
+            if (!email || !email.includes('@')) {
+                e.preventDefault();
+                errorMessage.textContent = 'Please enter a valid email address';
                 errorMessage.classList.add('show');
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Reserve My Spot - It\'s Free';
-                delete window[callbackName];
-            };
+                return;
+            }
             
-            // Add timeout in case callback never fires
-            setTimeout(function() {
-                if (window[callbackName]) {
-                    errorMessage.textContent = 'Request timeout. Please try again.';
-                    errorMessage.classList.add('show');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Reserve My Spot - It\'s Free';
-                    delete window[callbackName];
-                }
-            }, 10000); // 10 second timeout
-            
-            document.body.appendChild(script);
+            // If validation passes, Formspree handles the rest
+            errorMessage.classList.remove('show');
         });
     </script>
 </body>
