@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1: The Mad Tea Party (Ages 7-9)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #fff;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 20%;
+            height: 100%;
+            background: linear-gradient(90deg, #ffc107, #ffed4e);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffc107, #ffb300);
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffc107;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-left: 10px;
+            font-size: 0.85em;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #fff;
+            font-family: Georgia, serif;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #d0d0d0;
+            margin-bottom: 10px;
+        }
+
+        .reading-time {
+            font-size: 0.95em;
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            padding: 50px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .story-text {
+            font-size: 1.2em;
+            line-height: 1.9;
+            color: #e8e8e8;
+            margin-bottom: 30px;
+        }
+
+        .story-text p {
+            margin-bottom: 20px;
+        }
+
+        .cliffhanger {
+            font-size: 1.3em;
+            color: #ffc107;
+            font-weight: 700;
+            font-style: italic;
+            border-left: 4px solid #ffc107;
+            padding-left: 25px;
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Activity Section */
+        .activity-section {
+            margin-bottom: 50px;
+        }
+
+        .activity-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .activity-header h2 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #ffc107;
+            font-weight: 800;
+            font-family: Georgia, serif;
+        }
+
+        .activity-header p {
+            color: #d0d0d0;
+            font-size: 1.1em;
+        }
+
+        .activity-card {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+            padding: 35px;
+            border-radius: 12px;
+            border-left: 5px solid #ffc107;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 193, 7, 0.08) 100%);
+        }
+
+        .activity-card h3 {
+            color: #ffc107;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .activity-card p {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+
+        .activity-icon {
+            font-size: 1.5em;
+        }
+
+        /* Navigation */
+        .navigation {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown {
+            margin-bottom: 25px;
+        }
+
+        .countdown p {
+            color: #d0d0d0;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .countdown-date {
+            color: #ffc107;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #ffc107, #ffb300);
+            color: #000;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+            background: linear-gradient(135deg, #ffed4e, #ffc107);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .story-section {
+                padding: 30px 20px;
+            }
+
+            .story-text {
+                font-size: 1.05em;
+            }
+
+            .activity-card {
+                padding: 25px 20px;
+            }
+
+            .navigation {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div>
+                <span class="day-badge">📖 Day 1 of 5</span>
+                <span class="age-badge">Ages 7-9</span>
+            </div>
+            <h1>The Mad Tea Party</h1>
+            <p class="subtitle">October 20th, 2024</p>
+            <p class="reading-time">⏱️ 5 min read + activities</p>
+        </div>
+
+        <!-- Story Section -->
+        <div class="story-section">
+            <div class="story-text">
+                <p>Alice had been walking through Wonderland when she saw a large table set out under a tree. The March Hare and the Mad Hatter were sitting at it having tea, with a Dormouse fast asleep between them. They were using the sleeping Dormouse as a cushion to rest their arms on while they talked.</p>
+
+                <p>"That looks uncomfortable for the Dormouse," thought Alice, "but since it's asleep, I suppose it doesn't mind."</p>
+
+                <p>The table was enormous, but the three of them were crowded together at one corner. "No room! No room!" they shouted when they saw Alice coming.</p>
+
+                <p>"There's plenty of room!" said Alice, looking at all the empty chairs. She sat down in a large armchair without waiting to be asked.</p>
+
+                <p>"Have some wine," the March Hare said in a friendly way.</p>
+
+                <p>Alice looked around the table, but there was nothing on it except tea. "I don't see any wine," she said.</p>
+
+                <p>"There isn't any," said the March Hare.</p>
+
+                <p>"Then it wasn't very polite of you to offer it," said Alice, feeling cross.</p>
+
+                <p>The Hatter stared at her with very wide eyes. "Why is a raven like a writing-desk?" he asked.</p>
+
+                <p>Alice felt excited. Maybe she could guess the answer! "I think I can work that out," she said.</p>
+
+                <p>"Do you mean you think you can find out the answer?" said the March Hare.</p>
+
+                <p>"Yes," said Alice.</p>
+
+                <p>"Then you should say what you mean," said the March Hare.</p>
+
+                <p>But would Alice ever solve this mysterious riddle, or would the tea party's strange logic confuse her?</p>
+            </div>
+
+            <div class="cliffhanger">
+                To Be Continued...
+            </div>
+        </div>
+
+        <!-- Activity Section -->
+        <div class="activity-section">
+            <div class="activity-header">
+                <h2>Today's Activities</h2>
+                <p>Complete these activities with a parent or grown-up</p>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">💭</span> Discussion Question</h3>
+                <p>Why do you think they said "no room!" when there was clearly room?</p>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">🔍</span> Retrieval Skills</h3>
+                <p>What characters have we been introduced to so far? Research the characters we have been introduced to. What can you find out?</p>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">📝</span> Vocabulary Skills</h3>
+                <p>"I think I can work that out," she said - what other words could be used instead of 'said' to show Alice was excited?</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <div class="countdown">
+                <p>📅 Day 2 arrives tomorrow in your inbox!</p>
+                <div class="countdown-date">October 21st at 9am</div>
+            </div>
+            <p style="color: #d0d0d0; margin-top: 20px; font-size: 1.05em;">Check your email tomorrow morning for the next part of the adventure.</p>
+        </div>
+    </div>
+</body>
+</html>
