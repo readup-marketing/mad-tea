@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1: The Mad Tea Party (Ages 9-11)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #fff;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 20%;
+            height: 100%;
+            background: linear-gradient(90deg, #ffc107, #ffed4e);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffc107, #ffb300);
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffc107;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-left: 10px;
+            font-size: 0.85em;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #fff;
+            font-family: Georgia, serif;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #d0d0d0;
+            margin-bottom: 10px;
+        }
+
+        .reading-time {
+            font-size: 0.95em;
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            padding: 50px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .story-text {
+            font-size: 1.2em;
+            line-height: 1.9;
+            color: #e8e8e8;
+            margin-bottom: 30px;
+        }
+
+        .story-text p {
+            margin-bottom: 20px;
+        }
+
+        .cliffhanger {
+            font-size: 1.3em;
+            color: #ffc107;
+            font-weight: 700;
+            font-style: italic;
+            border-left: 4px solid #ffc107;
+            padding-left: 25px;
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Activity Section */
+        .activity-section {
+            margin-bottom: 50px;
+        }
+
+        .activity-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .activity-header h2 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #ffc107;
+            font-weight: 800;
+            font-family: Georgia, serif;
+        }
+
+        .activity-header p {
+            color: #d0d0d0;
+            font-size: 1.1em;
+        }
+
+        .activity-card {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+            padding: 35px;
+            border-radius: 12px;
+            border-left: 5px solid #ffc107;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 193, 7, 0.08) 100%);
+        }
+
+        .activity-card h3 {
+            color: #ffc107;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .activity-card p {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+
+        .activity-icon {
+            font-size: 1.5em;
+        }
+
+        /* Vocabulary matching */
+        .vocab-matching {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .vocab-column {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .vocab-word-item,
+        .vocab-def-item {
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 1.05em;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .vocab-word-item {
+            font-weight: 600;
+            color: #ffc107;
+        }
+
+        /* Navigation */
+        .navigation {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown {
+            margin-bottom: 25px;
+        }
+
+        .countdown p {
+            color: #d0d0d0;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .countdown-date {
+            color: #ffc107;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .story-section {
+                padding: 30px 20px;
+            }
+
+            .story-text {
+                font-size: 1.05em;
+            }
+
+            .activity-card {
+                padding: 25px 20px;
+            }
+
+            .navigation {
+                padding: 30px 20px;
+            }
+
+            .vocab-matching {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div>
+                <span class="day-badge">📖 Day 1 of 5</span>
+                <span class="age-badge">Ages 9-11</span>
+            </div>
+            <h1>The Mad Tea Party</h1>
+            <p class="subtitle">October 20th, 2024</p>
+            <p class="reading-time">⏱️ 6 min read + activities</p>
+        </div>
+
+        <!-- Story Section -->
+        <div class="story-section">
+            <div class="story-text">
+                <p>Alice had been wandering through Wonderland when she discovered a large table positioned beneath an ancient oak tree. The March Hare and the Mad Hatter were occupied with drinking tea, with a Dormouse in a deep slumber between them. They were using the Dormouse as a cushion to rest their elbows on whilst they engaged in conversation.</p>
+
+                <p>"That looks rather uncomfortable for the Dormouse," thought Alice, "but since it's unconscious, I don't believe it minds."</p>
+
+                <p>The table was vast, but the three of them were clustered together at one corner. "No room! No room!" they exclaimed loudly when they saw Alice approaching.</p>
+
+                <p>"There's plenty of room!" said Alice, observing all the vacant space. She sat down in a large armchair without being invited.</p>
+
+                <p>"Have some wine," the March Hare offered graciously.</p>
+
+                <p>Alice examined the table, but there was nothing upon it except tea. "I don't see any wine," she remarked.</p>
+
+                <p>"There isn't any," said the March Hare.</p>
+
+                <p>"Then it wasn't very civil of you to offer it," said Alice, feeling indignant.</p>
+
+                <p>The Hatter fixed his gaze upon her with extraordinarily dilated eyes. "Why is a raven like a writing-desk?" he enquired mysteriously.</p>
+
+                <p>Alice experienced a surge of enthusiasm. Perhaps she could decipher the answer! "I believe I can solve that riddle," she declared.</p>
+
+                <p>"Do you mean to suggest you think you can discover the answer?" said the March Hare.</p>
+
+                <p>"Precisely," said Alice.</p>
+
+                <p>"Then you should articulate what you intend," said the March Hare.</p>
+
+                <p>But would Alice ever decipher this enigmatic riddle, or would the tea party's absurd logic perplex her?</p>
+            </div>
+
+            <div class="cliffhanger">
+                To Be Continued...
+            </div>
+        </div>
+
+        <!-- Activity Section -->
+        <div class="activity-section">
+            <div class="activity-header">
+                <h2>Today's Activities</h2>
+                <p>Complete these activities with a parent or grown-up</p>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">💭</span> Discussion Question</h3>
+                <p>Why do you think they said "no room!" when there was clearly room?</p>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">🧩</span> Riddle Challenge</h3>
+                <p>What do you think is the answer to the riddle - why is a raven like a writing desk?</p>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">📚</span> Vocabulary Matching</h3>
+                <p>Match the words on the left to the definitions on the right:</p>
+                <div class="vocab-matching">
+                    <div class="vocab-column">
+                        <h4 style="color: #ffc107; margin-bottom: 15px;">Words:</h4>
+                        <div class="vocab-word-item">1. Vacant</div>
+                        <div class="vocab-word-item">2. Indignant</div>
+                        <div class="vocab-word-item">3. Articulate</div>
+                        <div class="vocab-word-item">4. Decipher</div>
+                        <div class="vocab-word-item">5. Enigmatic</div>
+                        <div class="vocab-word-item">6. Perplex</div>
+                    </div>
+                    <div class="vocab-column">
+                        <h4 style="color: #ffc107; margin-bottom: 15px;">Definitions:</h4>
+                        <div class="vocab-def-item">A. To confuse or puzzle someone</div>
+                        <div class="vocab-def-item">B. Mysterious and difficult to understand</div>
+                        <div class="vocab-def-item">C. To work out the meaning of something difficult</div>
+                        <div class="vocab-def-item">D. Empty or unoccupied</div>
+                        <div class="vocab-def-item">E. To express thoughts clearly and effectively</div>
+                        <div class="vocab-def-item">F. Feeling annoyed or offended by unfair treatment</div>
+                    </div>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.95em; color: #d0d0d0;">Write down the matching number with the letter that matches (e.g., 1-D)</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <div class="countdown">
+                <p>📅 Day 2 arrives tomorrow in your inbox!</p>
+                <div class="countdown-date">October 21st at 9am</div>
+            </div>
+            <p style="color: #d0d0d0; margin-top: 20px; font-size: 1.05em;">Check your email tomorrow morning for the next part of the adventure.</p>
+        </div>
+    </div>
+</body>
+</html>
