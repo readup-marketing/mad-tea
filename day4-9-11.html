@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4: The Mad Tea Party (Ages 9-11)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #fff;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(90deg, #ffc107, #ffed4e);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffc107, #ffb300);
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffc107;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-left: 10px;
+            font-size: 0.85em;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #fff;
+            font-family: Georgia, serif;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #d0d0d0;
+            margin-bottom: 10px;
+        }
+
+        .reading-time {
+            font-size: 0.95em;
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            padding: 50px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .story-text {
+            font-size: 1.2em;
+            line-height: 1.9;
+            color: #e8e8e8;
+            margin-bottom: 30px;
+        }
+
+        .story-text p {
+            margin-bottom: 20px;
+        }
+
+        .cliffhanger {
+            font-size: 1.3em;
+            color: #ffc107;
+            font-weight: 700;
+            font-style: italic;
+            border-left: 4px solid #ffc107;
+            padding-left: 25px;
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Activity Section */
+        .activity-section {
+            margin-bottom: 50px;
+        }
+
+        .activity-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .activity-header h2 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #ffc107;
+            font-weight: 800;
+            font-family: Georgia, serif;
+        }
+
+        .activity-header p {
+            color: #d0d0d0;
+            font-size: 1.1em;
+        }
+
+        .activity-card {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+            padding: 35px;
+            border-radius: 12px;
+            border-left: 5px solid #ffc107;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 193, 7, 0.08) 100%);
+        }
+
+        .activity-card h3 {
+            color: #ffc107;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .activity-card p {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .activity-icon {
+            font-size: 1.5em;
+        }
+
+        .completion-questions {
+            margin-top: 20px;
+        }
+
+        .completion-question {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .completion-question p {
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .completion-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .completion-option {
+            padding: 8px 16px;
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 6px;
+            color: #ffc107;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .mc-option {
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Navigation */
+        .navigation {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown {
+            margin-bottom: 25px;
+        }
+
+        .countdown p {
+            color: #d0d0d0;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .countdown-date {
+            color: #ffc107;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .story-section {
+                padding: 30px 20px;
+            }
+
+            .story-text {
+                font-size: 1.05em;
+            }
+
+            .activity-card {
+                padding: 25px 20px;
+            }
+
+            .navigation {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div>
+                <span class="day-badge">📖 Day 4 of 5</span>
+                <span class="age-badge">Ages 9-11</span>
+            </div>
+            <h1>The Mad Tea Party</h1>
+            <p class="subtitle">October 23rd, 2024</p>
+            <p class="reading-time">⏱️ 6 min read + activities</p>
+        </div>
+
+        <!-- Story Section -->
+        <div class="story-section">
+            <div class="story-text">
+                <p>"What a peculiar watch!" Alice remarked, observing the Hatter's pocket watch. "It tells you what day of the month it is, but it doesn't tell you what time it is!"</p>
+
+                <p>"Why should it?" muttered the Hatter. "Does your watch tell you what year it is?"</p>
+
+                <p>"Of course not," Alice replied promptly, "but that's because it stays the same year for such a long time."</p>
+
+                <p>"Which is precisely the same with mine," said the Hatter.</p>
+
+                <p>Alice felt thoroughly puzzled. The Hatter's statements didn't seem to make any sense, even though they were speaking English.</p>
+
+                <p>"The Dormouse is asleep again," said the Hatter, and he poured a little hot tea on its nose.</p>
+
+                <p>The Dormouse shook its head irritably but didn't open its eyes. "Of course, of course; that's exactly what I was going to say myself."</p>
+
+                <p>"Have you guessed the riddle yet?" the Hatter said, turning to Alice again.</p>
+
+                <p>"No, I give up," Alice replied. "What's the answer?"</p>
+
+                <p>"I haven't got the slightest idea," said the Hatter.</p>
+
+                <p>"Neither have I," said the March Hare.</p>
+
+                <p>Alice sighed wearily. This conversation was going nowhere.</p>
+
+                <p>"I think you could do something better with your time," said Alice, "than ask riddles with no answers."</p>
+
+                <p>"Have some more tea," the March Hare said to Alice very earnestly.</p>
+
+                <p>"I haven't had any tea yet," Alice replied indignantly, "so I can't have more."</p>
+
+                <p>"You mean you can't have less," said the Hatter. "It's very easy to have more than nothing."</p>
+
+                <p>"Nobody asked for your opinion," said Alice.</p>
+
+                <p>"Who's making personal remarks now?" the Hatter asked triumphantly.</p>
+
+                <p>Alice was growing increasingly frustrated with their word games. But something strange was about to happen.</p>
+            </div>
+
+            <div class="cliffhanger">
+                To Be Continued...
+            </div>
+        </div>
+
+        <!-- Activity Section -->
+        <div class="activity-section">
+            <div class="activity-header">
+                <h2>Today's Activities</h2>
+                <p>Complete these activities with a parent or grown-up</p>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">✏️</span> Word Completion</h3>
+                <p>Choose the correct word for each sentence based on what you read:</p>
+                <div class="completion-questions">
+                    <div class="completion-question">
+                        <p>1. The Hatter's watch tells the _______ of the month instead of the time.</p>
+                        <div class="completion-options">
+                            <span class="completion-option">day</span>
+                            <span class="completion-option">year</span>
+                            <span class="completion-option">hour</span>
+                            <span class="completion-option">season</span>
+                        </div>
+                    </div>
+
+                    <div class="completion-question">
+                        <p>2. Alice felt thoroughly _______ by the Hatter's logic.</p>
+                        <div class="completion-options">
+                            <span class="completion-option">puzzled</span>
+                            <span class="completion-option">excited</span>
+                            <span class="completion-option">happy</span>
+                            <span class="completion-option">bored</span>
+                        </div>
+                    </div>
+
+                    <div class="completion-question">
+                        <p>3. The March Hare spoke to Alice very _______ when offering more tea.</p>
+                        <div class="completion-options">
+                            <span class="completion-option">rudely</span>
+                            <span class="completion-option">earnestly</span>
+                            <span class="completion-option">quietly</span>
+                            <span class="completion-option">angrily</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">✅</span> Multiple Choice - Question 1</h3>
+                <p>Why does the Hatter think his logic about the watch makes sense?</p>
+                <div>
+                    <div class="mc-option"><strong>A)</strong> Because he's trying to trick Alice</div>
+                    <div class="mc-option"><strong>B)</strong> Because in Wonderland, strange logic is normal</div>
+                    <div class="mc-option"><strong>C)</strong> Because he doesn't understand how watches work</div>
+                    <div class="mc-option"><strong>D)</strong> Because Alice's watch is broken too</div>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">✅</span> Multiple Choice - Question 2</h3>
+                <p>What does the Hatter mean when he says "It's very easy to have more than nothing"?</p>
+                <div>
+                    <div class="mc-option"><strong>A)</strong> Alice should be grateful for any tea at all</div>
+                    <div class="mc-option"><strong>B)</strong> If you have zero of something, any amount is "more"</div>
+                    <div class="mc-option"><strong>C)</strong> The tea is easy to pour</div>
+                    <div class="mc-option"><strong>D)</strong> Alice is being rude</div>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <h3><span class="activity-icon">📝</span> Open Response</h3>
+                <p>The Hatter says "Who's making personal remarks now?" after Alice says "Nobody asked for your opinion." Why does he say this? Is it fair? Explain your thinking.</p>
+                <p style="margin-top: 15px; font-size: 1em; font-style: italic; color: #d0d0d0;">Write your answer on paper or discuss it with your parent.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <div class="countdown">
+                <p>🎉 Final chapter arrives tomorrow in your inbox!</p>
+                <div class="countdown-date">October 24th at 9am</div>
+            </div>
+            <p style="color: #d0d0d0; margin-top: 20px; font-size: 1.05em;">Check your email tomorrow morning for the thrilling conclusion!</p>
+        </div>
+    </div>
+</body>
+</html>
